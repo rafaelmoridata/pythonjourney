@@ -1,0 +1,1 @@
+['limao\n', 'laranja\n', 'pera\n', 'abacaxi\n', 'uva\n']

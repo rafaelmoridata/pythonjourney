@@ -1,0 +1,68 @@
+mongo --version
+
+mongo
+
+show dbs
+
+- Criar banco de dados ou conectar
+use 4linux
+
+- Exibir tabelas
+show tables
+
+- Exibir collections
+show collections
+
+- Criando tabela, collection e inserindo
+> db.pessoas.insert({'_id':2, 'nome':'joao', 'idade':42})
+WriteResult({ "nInserted" : 1 })
+
+- Listando
+> show tables
+pessoas
+> show collections
+pessoas
+> db.pessoas.find()
+{ "_id" : 2, "nome" : "joao", "idade" : 42 }
+
+> db.pessoas.find().pretty()
+{ "_id" : 2, "nome" : "joao", "idade" : 42 }
+
+> db.pessoas.find({'_id':2})
+{ "_id" : 2, "nome" : "joao", "idade" : 42 }
+
+> db.pessoas.insert({'nome':'maria', 'idade':45})
+WriteResult({ "nInserted" : 1 })
+
+> db.pessoas.find().pretty()
+{ "_id" : 2, "nome" : "joao", "idade" : 42 }
+{
+	"_id" : ObjectId("5b3e9e0db47bad2def8a797a"),
+	"nome" : "maria",
+	"idade" : 45
+
+
+> db.pessoas.remove({'nome':'maria'})
+WriteResult({ "nRemoved" : 1 })
+> db.pessoas.find().pretty()
+{ "_id" : 2, "nome" : "joao", "idade" : 42 }
+
+
+> db.pessoas.find().pretty()
+{ "_id" : 2, "sobrenome" : "prata" }
+
+
+> db.pessoas.update({'_id':2}, {'sobrenome':'prata'})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.pessoas.find().pretty()
+{ "_id" : 2, "sobrenome" : "prata" }
+# Pelo fato de não ter específicado para manter o campo nome, ele substituiu o documento inteiro
+
+# para não substituir o documento inteiro, colocar o $set para manter os campos que já existem
+> db.pessoas.update({'_id':1}, {'$set': {'sobrenome':'prata'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.pessoas.find().pretty()
+{ "_id" : 2, "sobrenome" : "prata" }
+{ "_id" : 1, "nome" : "maria", "idade" : 45, "sobrenome" : "prata" }
+
+
